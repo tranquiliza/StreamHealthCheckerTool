@@ -1,7 +1,5 @@
-﻿using StreamHealthChecker.Core.Application;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace StreamHealthChecker.Core.Model
 {
@@ -10,7 +8,7 @@ namespace StreamHealthChecker.Core.Model
         public TimeSpan NoObsCheckInterval { get; private set; } = TimeSpan.FromMinutes(5);
         public TimeSpan NotLiveCheckInternval { get; private set; } = TimeSpan.FromMinutes(5);
         public TimeSpan LiveCheckInterval { get; private set; } = TimeSpan.FromSeconds(10);
-        public TimeSpan LiveCheckJustSentErrorInterval { get; private set; } = TimeSpan.FromSeconds(30);
+        public TimeSpan LiveCheckJustSentErrorInterval { get; private set; } = TimeSpan.FromSeconds(10);
 
         private readonly List<string> _poorConnectionMessages = new List<string>();
         public IReadOnlyList<string> PoorConnectionMessages => _poorConnectionMessages;

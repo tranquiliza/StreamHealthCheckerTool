@@ -1,12 +1,8 @@
-﻿using Flurl.Http;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using StreamHealthChecker.Core.Application;
 using StreamHealthChecker.TwitchIntegration;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace StreamHealthChecker.Core

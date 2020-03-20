@@ -1,9 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk.Worker">
+﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UserSecretsId>dotnet-HealthCheckerHost-574AE9FA-0C57-44E8-B596-FD47E2158112</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="logs\**" />
+    <Content Remove="logs\**" />
+    <EmbeddedResource Remove="logs\**" />
+    <None Remove="logs\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.0.0" />
@@ -14,9 +21,5 @@
     <ProjectReference Include="..\StreamHealthChecker.Core\StreamHealthChecker.Core.csproj" />
     <ProjectReference Include="..\StreamHealthChecker.Repository.Sql\StreamHealthChecker.Repository.Sql.csproj" />
     <ProjectReference Include="..\StreamHealthChecker.TwitchIntegration\StreamHealthChecker.TwitchIntegration.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="logs\" />
   </ItemGroup>
 </Project>

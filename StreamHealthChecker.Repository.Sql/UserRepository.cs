@@ -1,6 +1,5 @@
 ﻿using StreamHealthChecker.Core;
 using StreamHealthChecker.Core.Model;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -18,7 +17,7 @@ namespace StreamHealthChecker.Repository.Sql
             tranquiliza.AddNoConnectionMessage("Tranq you need to come back to the grid! D:");
 
             tranquiliza.AddPoorConnectionMessage("Tranq is still having issues..");
-            tranquiliza.AddPoorConnectionMessage("God Tranq, get your ... together.");
+            tranquiliza.AddPoorConnectionMessage("God Tranq, get your shit together.");
 
             _users = new List<User>
             {

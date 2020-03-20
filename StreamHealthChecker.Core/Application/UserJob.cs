@@ -115,7 +115,8 @@ namespace StreamHealthChecker.Core.Application
 
             if (currentBitrate < _user.MinimumBitrate)
             {
-                await SendPoorConnectionMessage(currentBitrate).ConfigureAwait(false);
+                if (!_hasJustSentError)
+                    await SendPoorConnectionMessage(currentBitrate).ConfigureAwait(false);
 
                 _poorConnection = true;
                 _hasJustSentError = true;
@@ -125,7 +126,7 @@ namespace StreamHealthChecker.Core.Application
             if (_poorConnection)
             {
                 _poorConnection = false;
-                await SendMessageToUser($"ISSUES RESOLVED! Current bitrate: {currentBitrate} kbps").ConfigureAwait(false);
+                await SendMessageToUser($"ISSUES RESOLVED! {currentBitrate} kbps").ConfigureAwait(false);
             }
         }
 
@@ -157,9 +158,9 @@ namespace StreamHealthChecker.Core.Application
         {
             var messages = _user.PoorConnectionMessages;
             if (messages.Count == 0)
-                await SendMessageToUser($"ISSUES DETECTED: Slow connection: {currentBitrate} kbps").ConfigureAwait(false);
+                await SendMessageToUser($"ISSUES DETECTED: {currentBitrate} kbps").ConfigureAwait(false);
             else
-                await SendMessageToUser(messages[_random.Next(0, messages.Count)] + $" Current bitrate: {currentBitrate} kbps").ConfigureAwait(false);
+                await SendMessageToUser(messages[_random.Next(0, messages.Count)] + $" {currentBitrate} kbps").ConfigureAwait(false);
         }
 
         private async Task SendMessageToUser(string message)
