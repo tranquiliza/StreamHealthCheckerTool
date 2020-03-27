@@ -42,6 +42,7 @@ namespace StreamHealthChecker.Core.Application
         private bool _hasJustSentError = false;
         private string _currentHealthInfomation;
         private bool _poorConnection = false;
+        private bool _hasWarnedAboutPoorConnection = false;
 
         private readonly User _user;
 
@@ -103,10 +104,12 @@ namespace StreamHealthChecker.Core.Application
         {
             if (_currentHealthInfomation.Contains(_noConnectionValue))
             {
-                await SendNoConnectionMessage().ConfigureAwait(false);
+                if (!_hasWarnedAboutPoorConnection)
+                    await SendNoConnectionMessage().ConfigureAwait(false);
 
                 _poorConnection = true;
                 _hasJustSentError = true;
+                _hasWarnedAboutPoorConnection = true;
                 return;
             }
 
@@ -115,17 +118,19 @@ namespace StreamHealthChecker.Core.Application
 
             if (currentBitrate < _user.MinimumBitrate)
             {
-                if (!_hasJustSentError)
+                if (!_hasWarnedAboutPoorConnection)
                     await SendPoorConnectionMessage(currentBitrate).ConfigureAwait(false);
 
                 _poorConnection = true;
                 _hasJustSentError = true;
+                _hasWarnedAboutPoorConnection = true;
                 return;
             }
 
             if (_poorConnection)
             {
                 _poorConnection = false;
+                _hasWarnedAboutPoorConnection = false;
                 await SendMessageToUser($"ISSUES RESOLVED! {currentBitrate} kbps").ConfigureAwait(false);
             }
         }
